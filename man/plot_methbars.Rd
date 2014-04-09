@@ -1,0 +1,56 @@
+\name{plot_methbars}
+\alias{plot_methbars}
+\title{Projection bars grouped by method}
+\usage{
+plot_methbars(meanchange, allchange = NULL, x = NULL, ylim = NULL,
+  add.legend = FALSE, yside = 2, add.rect = TRUE, ylab = "", las = 2,
+  xlas = 2, title = "", lwd = 10, lwd2 = 2, cex = par("cex.axis"),
+  legend.pos = "topright", add = FALSE, colval = 0, coli = NULL,
+  axes = TRUE)
+}
+\arguments{
+  \item{meanchange}{list of projected n-year mean change
+  (method; scenario)}
+
+  \item{allchange}{list of projected annual changes
+  (method; scenario)}
+
+  \item{x}{named vector with x intersects}
+
+  \item{ylim}{vertical extent of plot}
+
+  \item{add.legend}{logical, should legend be added?}
+
+  \item{yside}{side at which y-axis is labelled (2,4)}
+
+  \item{add.rect}{logical, should negative values have grey
+  background shading?}
+
+  \item{ylab}{vertical axis labelling}
+
+  \item{las,xlas}{orientation o y and x axis labelling}
+
+  \item{title}{title for the plot}
+
+  \item{lwd,lwd2}{line width of bars and bar extensions}
+
+  \item{cex}{character expansion for text}
+
+  \item{legend.pos}{placement of legend (see
+  \code{\link{legend}})}
+
+  \item{add}{logical, should plot be added to existing
+  plot?}
+
+  \item{colval}{hue(s) for colours in barplot}
+
+  \item{coli}{index for dark or light shading of bars
+  (alternating is default)}
+
+  \item{axes}{logical, should axes be plotted?}
+}
+\description{
+Plots grouped bars (by method) with alternating colours
+}
+\keyword{plot}
+

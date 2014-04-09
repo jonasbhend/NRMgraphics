@@ -1,0 +1,67 @@
+\name{plot_projbars}
+\alias{plot_projbars}
+\title{Barplots of projected changes}
+\usage{
+plot_projbars(meanchange, allchange = NULL, ylim = NULL, nmods = NULL,
+  nsim = NULL, add.legend = TRUE, yside = 4, add.rect = TRUE,
+  ylab = "", las = 2, xlas = 2, title = "", scenarios = NULL,
+  add.nmod = FALSE, seas = NULL, lwd = 10, lwd2 = 2,
+  cex = par("cex.axis"), legend.pos = "topright", add = FALSE,
+  scols = scencols, scols2 = scencols2, yaxt = "s", distance = 0.5)
+}
+\arguments{
+  \item{meanchange}{list of projected n-year mean change
+  (seasons // scenario)}
+
+  \item{allchange}{list of projected annual changes
+  (seasons // scenario)}
+
+  \item{ylim}{vertical extent of plot}
+
+  \item{nmods,nsim}{number of models and simulations per
+  scenario}
+
+  \item{add.legend}{logical, should legend be added?}
+
+  \item{yside}{side at which y-axis is labelled (2,4)}
+
+  \item{add.rect}{logical, should negative values have grey
+  background shading?}
+
+  \item{ylab}{vertical axis labelling}
+
+  \item{las,xlas}{orientation o y and x axis labelling}
+
+  \item{title}{title for the plot}
+
+  \item{scenarios}{vector of scenario names to be plotted}
+
+  \item{add.nmod}{logical, should number of models and
+  simulations be displayed?}
+
+  \item{seas}{which seasons should be plotted}
+
+  \item{lwd,lwd2}{line width of bars and bar extensions}
+
+  \item{cex}{character expansion for text}
+
+  \item{legend.pos}{placement of legend (see
+  \code{\link{legend}})}
+
+  \item{add}{logical, should plot be added to existing
+  plot?}
+
+  \item{scols,scols2}{scenario colours (named vector)}
+
+  \item{yaxt}{character describing y-axis labelling}
+
+  \item{distance}{white space between group of bars}
+}
+\value{
+vertical limits of plots (e.g. \code{ylim})
+}
+\description{
+Function to plot bars of projected changes
+}
+\keyword{plot}
+

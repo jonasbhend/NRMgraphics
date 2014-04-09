@@ -1,0 +1,13 @@
+Package: NRMgraphics
+Title: Graphics and analysis for the NRM projections project
+Description: Package for plotting of CMIP5 and other climate model output
+Version: 0.1
+Authors@R: 'Jonas Bhend <jonas.bhend@gmx.ch> [aut, cre]'
+Depends:
+    R (>= 3.0.2),
+    methods,
+    mapdata,
+    maps,
+    geoutils
+License: GPL-3
+LazyData: true
