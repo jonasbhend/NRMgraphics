@@ -41,5 +41,14 @@ colouring named with the region abbreviations. In addition,
 colouring. \code{title} will add a title and \code{units}
 will add units to the legend.
 }
+\examples{
+bbg <- list(data=c(R=0.9, SA=1.9, `NA`=2.9, EA=3.9))
+afun <- function(regn) {
+     plot(rnorm(100), type='l', xlab='', ylab='', axes=F)
+     box()
+     text(1, par('usr')[4], regn, font=2, adj=c(0,1.5))
+     }
+allAustralia(fun=afun, bg=bbg, regnames=c('R', 'NA', 'SA', 'EA'))
+}
 \keyword{plot}
 

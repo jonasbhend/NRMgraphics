@@ -25,6 +25,14 @@
 #' will add units to the legend.
 #' 
 #' @keywords plot
+#' @examples
+#' bbg <- list(data=c(R=0.9, SA=1.9, `NA`=2.9, EA=3.9))
+#' afun <- function(regn) {
+#'      plot(rnorm(100), type='l', xlab='', ylab='', axes=F)
+#'      box()
+#'      text(1, par('usr')[4], regn, font=2, adj=c(0,1.5))
+#'      }
+#' allAustralia(fun=afun, bg=bbg, regnames=c('R', 'NA', 'SA', 'EA'))
 #' @export
 allAustralia <- function(fun, bg=NULL, add.legend=TRUE, old=FALSE, regnames=NULL, ...){
   ## read in the nrm boundaries
@@ -45,15 +53,16 @@ allAustralia <- function(fun, bg=NULL, add.legend=TRUE, old=FALSE, regnames=NULL
     if (is.null(bg$col)) bg$col <- colourramp(length(bg$lev) - 1, ramp='redblue', start=0.2)
     for (regn in regnames2) lapply(nrmregions[[regn]], polygon, border=grey(0.7), col=bg$col[cut(bg$data[regn], bg$lev)])
     if (add.legend){
-      set_position(123.8, -47-2, size=c(0.4, 0.015))
-      ## plot the colourbar manually
-      image(seq(bg$col), 1, as.matrix(seq(along=bg$col)), breaks=seq(0.5, length(bg$col)+0.5), col=bg$col, xaxt='n', yaxt='n', xlab='', ylab='')
-      box()
-      abline(v=seq(1.5, length(bg$col) - 0.5))
-      axis(1, at=seq(1.5, length(bg$col) - 0.5), labels=bg$lev[-c(1, length(bg$lev))], cex.axis=0.8*par('cex.axis'), line=-0.7, tick=F)
-      if (!is.null(bg$units)) axis(1, at=length(bg$col)+0.5, bg$units, tick=F, hadj=0.2, cex.axis=0.8*par('cex.axis'), line=-0.7)
-      if (!is.null(bg$title)) axis(3, at=0.5, bg$title, font=2, tick=F, hadj=0, line=-0.7, cex.axis=0.8*par('cex.axis'))
-      reset_position()      
+      addcolourbar <- function(){
+        image(seq(bg$col), 1, as.matrix(seq(along=bg$col)), breaks=seq(0.5, length(bg$col)+0.5), col=bg$col, xaxt='n', yaxt='n', xlab='', ylab='')
+        box()
+        abline(v=seq(1.5, length(bg$col) - 0.5))
+        axis(1, at=seq(1.5, length(bg$col) - 0.5), labels=bg$lev[-c(1, length(bg$lev))], cex.axis=0.8*par('cex.axis'), line=-0.7, tick=F)
+        if (!is.null(bg$units)) axis(1, at=length(bg$col)+0.5, bg$units, tick=F, hadj=0.2, cex.axis=0.8*par('cex.axis'), line=-0.7)
+        if (!is.null(bg$title)) axis(3, at=0.5, bg$title, font=2, tick=F, hadj=0, line=-0.7, cex.axis=0.8*par('cex.axis'))        
+      }
+      ## add the colourbar in an inset
+      inset(inset.x=123.8, inset.y=-47-2, fun=addcolourbar, inset.size=c(0.4, 0.015))
     }
   } else {
     for (regn in regnames2) lapply(nrmregions[[regn]], polygon, border=grey(0.7), col=grey(0.9))    
@@ -64,9 +73,7 @@ allAustralia <- function(fun, bg=NULL, add.legend=TRUE, old=FALSE, regnames=NULL
     size <- if (all(regnames %in% c('EA', 'SA', 'NA', 'R'))) c(0.35, 0.2) else c(0.1, 0.15)
     for (regn in regnames){
       if (regn == 'SSVW') arrows(x0=140.5, x1=143.5, y0=-39, y1=-38, code=2, lwd=3, length=0.05, col=grey(0.2))
-      set_position(nrmlons[regn], nrmlats[regn], size=size, bg=rgb(1,1,1,0.8))
-      fun(regn, ...)
-      reset_position()
+      inset(inset.x=nrmlons[regn], inset.y=nrmlats[regn], inset.size=size, inset.bg=rgb(1,1,1,0.8), fun=fun, regn=regn, ...=...)
     }
   }
   ## plot bounding box
@@ -76,7 +83,5 @@ allAustralia <- function(fun, bg=NULL, add.legend=TRUE, old=FALSE, regnames=NULL
 #' @rdname allAustralia
 #' @export
 allAustraliaKey <- function(fun, ...){
-  on.exit(reset_position())
-  set_position(116, -43, size=c(0.1, 0.15))
-  fun(...)
+  inset(inset.x=116, inset.y-43, inset.size=c(0.1, 0.15), fun=fun, ...=...)
 }
