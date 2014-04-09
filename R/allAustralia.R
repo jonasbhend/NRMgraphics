@@ -42,7 +42,7 @@ allAustralia <- function(fun, bg=NULL, add.legend=TRUE, old=FALSE, regnames=NULL
       bg <- list(data=bg)
     }
     if (is.null(bg$lev)) bg$lev <- pretty(bg$data)
-    if (is.null(bg$col)) bg$col <- rbfun(length(bg$lev) - 1, start=0.2)
+    if (is.null(bg$col)) bg$col <- colourramp(length(bg$lev) - 1, ramp='redblue', start=0.2)
     for (regn in regnames2) lapply(nrmregions[[regn]], polygon, border=grey(0.7), col=bg$col[cut(bg$data[regn], bg$lev)])
     if (add.legend){
       set_position(123.8, -47-2, size=c(0.4, 0.015))
