@@ -83,5 +83,5 @@ allAustralia <- function(fun, bg=NULL, add.legend=TRUE, old=FALSE, regnames=NULL
 #' @rdname allAustralia
 #' @export
 allAustraliaKey <- function(fun, ...){
-  inset(inset.x=116, inset.y-43, inset.size=c(0.1, 0.15), fun=fun, ...=...)
+  inset(inset.x=116, inset.y=-43, inset.size=c(0.1, 0.15), fun=fun, ...=...)
 }
