@@ -38,8 +38,8 @@ plot_projbars <- function(meanchange, allchange=NULL, ylim=NULL, nmods=NULL, nsi
       } else {
         seas <- names(meanchange)
       }
-      if (all(seas == '')) seas <- 1
     }
+    if (all(seas == '')) seas <- 1
     meanchange <- meanchange[seas]
     if (!is.null(allchange)) allchange <- allchange[seas]
     cpos <- seq(along=meanchange)
