@@ -20,9 +20,6 @@ if (oldcolours){
   wetcols2 <- grDevices::hcl(c(40, 240), l=30, c=80)
 } else {
   ## new scenario colours (from light to dark)
-  ## scencols3 <- c(historical='#a4abb6', rcp26='#98acc9', rcp60='#F0c8a1', rcp45='#f3dfab', rcp85='#C2ac98')
-  ## scencols <- c(historical='#7e8999', rcp26='#5177a1', rcp60='#e29856', rcp45='#ebc868', rcp85='#8a7360')
-  ## scencols2 <- c(historical='#647484', rcp26='#004975', rcp60='#d6771a', rcp45='#ddb307', rcp85='#615142')
   .fincolvals <- round(rbind(
     c(102, 62, 81)*1.2,
     c(136, 96, 113)*1.3,
@@ -36,26 +33,17 @@ if (oldcolours){
     c(155, 152, 0)*0.9,
     c(199, 198, 89)*0.95,
     c(215, 214, 153)*1.05,
-    c(101, 117, 133), 
-    c(127, 138, 154)*1.1,
-    c(164, 171, 182)*1.1))
+    c(62, 62, 62), 
+    c(148, 148, 148),
+    c(214, 214, 214)))
   scencols <- rgb(.fincolvals[seq(2,15,3),], maxColorValue=251) ## mid tone
   scencols2 <- rgb(.fincolvals[seq(1,15,3),], maxColorValue=251) ## dar for median
   scencols3 <- rgb(.fincolvals[seq(3,15,3),], maxColorValue=251) ## light for outer shading
   names(scencols) <- names(scencols2) <- names(scencols3) <- c('rcp85', 'rcp45', 'rcp60', 'rcp26', 'historical') 
   blackcol <- '#303E36'
-  ## modcol <- '#7e8999'
-  modcol <- '#7e8999'
+  modcol <- hcl(280, l=50, c=50) ## '#7e8999'
   modcol2 <- '#c2ac98'
-  ## obscol <- '#88556c'
-  obscol <- blackcol
-  #   scencols3 <- c(historical='#a4abb6', rcp26='#E0E0AD', rcp60='#F3DFAB', rcp45='#F0CBA1', rcp85='#C6A6B2')
-  #   scencols <- c(historical='#7e8999', rcp26='#D7D58B', rcp60='#EBCB68', rcp45='#E29856', rcp85='#88556C')
-  #   scencols2 <- c(historical='#647484', rcp26='#C3C150', rcp60='#DDB307', rcp45='#D6771A', rcp85='#653E51')
-  #   blackcol <- '#303E36'
-  #   modcol <- '#7e8999'
-  #   modcol2 <- '#303E36'
-  #   obscol <- '#653e51'
+  obscol <- hcl(30, l=50, c=50) ## blackcol
   heatcols <- c('#5177a1', '#88556c')
   heatcols2 <- c('#004975', '#653e51')
   wetcols <- c('#8a7360', '#5177a1')
