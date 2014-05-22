@@ -26,6 +26,20 @@
 #' 
 #' @return vertical limits of plots (e.g. \code{ylim})
 #' 
+#' @examples
+#' ## set up a list of lists with projection data
+#' ## 
+#' mch <- list()
+#' ach <- list()
+#' for (se in c('DJF', 'MAM', 'JJA', 'SON')){
+#'   for (nm in c('GCM', 'Downscaled')){
+#'     mch[[se]][[nm]] <- quantile(rnorm(100, mean=1, sd=0.5), c(0.1, 0.9, 0.5))
+#'     ach[[se]][[nm]] <- quantile(rnorm(100, mean=1, sd=1), c(0.1, 0.9, 0.5))
+#'   }
+#' } 
+#' plot_projbars(mch, ach, seas=names(mch), xlas=1, yside=2)
+#' 
+#' 
 #' @keywords plot
 #' @export
 plot_projbars <- function(meanchange, allchange=NULL, ylim=NULL, nmods=NULL, nsim=NULL, add.legend=TRUE, yside=4, add.rect=TRUE, ylab='', las=2, xlas=2, title='', scenarios=NULL, add.nmod=FALSE, seas=NULL, lwd=10, lwd2=2, cex=par('cex.axis'), legend.pos='topright', add=FALSE, scols=scencols, scols2=scencols2, yaxt='s', distance=0.5){
@@ -94,10 +108,11 @@ plot_projbars <- function(meanchange, allchange=NULL, ylim=NULL, nmods=NULL, nsi
   
   ## add in legend
   if (add.legend & length(cpos) != 1){
+    scentxt <- if (all(scenarios %in% names(scennames))) scennames[scenarios] else scenarios
     if (add.nmod){
-      legend(legend.pos, paste(scennames[scenarios], ', ', nmods[scens], ' (', nsim[scens],')', sep=''), col=scols[scenarios], lwd=2, bty='n', inset=if (title != '' & legend.pos == 'topleft') c(0.02, 0.1) else 0.02, title='Scenario, #mod (#sim)', cex=cex)
+      legend(legend.pos, paste(scentxt, ' (', nsim[scens],')', sep=''), col=scols[scenarios], lwd=2, bty='n', inset=if (title != '' & legend.pos == 'topleft') c(0.02, 0.1) else 0.02, title='Scenario, #mod (#sim)', cex=cex)
     } else {
-      legend(legend.pos, scennames[scenarios], col=scols[scenarios], lwd=2, bty='n', inset=if (title != '' & legend.pos == 'topleft') c(0.02, 0.1) else 0.02, cex=cex)
+      legend(legend.pos, scentxt, col=scols[scenarios], lwd=2, bty='n', inset=if (title != '' & legend.pos == 'topleft') c(0.02, 0.1) else 0.02, cex=cex)
     }
   }  
   if (length(cpos) == length(seas) & !is.null(inseas)) axis(1, at=cpos, if (all(toupper(seas) %in% names(seastxt))) seastxt[toupper(seas)] else seas, tick=F, line=-0.5, las=xlas)

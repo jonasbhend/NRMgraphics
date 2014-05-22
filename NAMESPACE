@@ -1,5 +1,7 @@
 export(allAustralia)
 export(allAustraliaKey)
+export(allWorld)
+export(allWorldKey)
 export(alt_barproj)
 export(downscaling_scatterplot)
 export(plot_methbars)
