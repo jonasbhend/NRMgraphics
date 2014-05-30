@@ -1,4 +1,4 @@
-oldcolours <- TRUE
+oldcolours <- FALSE
 if (oldcolours){
   scencolvals <- c(rcp26=120, rcp45=50,rcp60=240,rcp85=13)
   ## scenario colours with old lime green
