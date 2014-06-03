@@ -36,14 +36,14 @@ if (oldcolours){
     c(62, 62, 62), 
     c(148, 148, 148),
     c(214, 214, 214)))
-  scencols <- rgb(.fincolvals[seq(2,15,3),], maxColorValue=251) ## mid tone
-  scencols2 <- rgb(.fincolvals[seq(1,15,3),], maxColorValue=251) ## dar for median
-  scencols3 <- rgb(.fincolvals[seq(3,15,3),], maxColorValue=251) ## light for outer shading
+  scencols <- grDevices::rgb(.fincolvals[seq(2,15,3),], maxColorValue=251) ## mid tone
+  scencols2 <- grDevices::rgb(.fincolvals[seq(1,15,3),], maxColorValue=251) ## dar for median
+  scencols3 <- grDevices::rgb(.fincolvals[seq(3,15,3),], maxColorValue=251) ## light for outer shading
   names(scencols) <- names(scencols2) <- names(scencols3) <- c('rcp85', 'rcp45', 'rcp60', 'rcp26', 'historical') 
   blackcol <- '#303E36'
-  modcol <- hcl(280, l=50, c=50) ## '#7e8999'
+  modcol <- grDevices::hcl(280, l=50, c=50) ## '#7e8999'
   modcol2 <- '#c2ac98'
-  obscol <- hcl(30, l=50, c=50) ## blackcol
+  obscol <- grDevices::hcl(30, l=50, c=50) ## blackcol
   heatcols <- c('#5177a1', '#88556c')
   heatcols2 <- c('#004975', '#653e51')
   wetcols <- c('#8a7360', '#5177a1')

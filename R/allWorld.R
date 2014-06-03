@@ -25,7 +25,7 @@
 #' 
 #' @keywords plot
 #' @export
-allWorld <- function(fun, regnames=NULL, inset.bg=rgb(1,1,1,0.8), ...){
+allWorld <- function(fun, regnames=NULL, inset.bg='#FFFFFFCC', ...){
   ## set the map dimensions
   mapdim <- c(-180, 180, -60, 85)
   lons <- c(GLO=-160, AUS=132, AMZ=-58, SSA=-58, CAM=-100, WNA=-140, CNA=-100, ENA=-60, ALA=-140, GRL=-40, MED=15, NEU=15, WAF=-5, EAF=35, SAF=21, SAH=15, SEA=125, EAS=135, SAS=82, CAS=55, TIB=95, NAS=110, SAU=132, NAU=132, SEAUS=148, SWAUS=117, NWAUS=122, TNAFR=-5, TINDO=75, TTIBE=105, NHILA=0, SHILA=0, TROLA=65, TROAF=20, TROIN=130, TGLO=-160, OCEAN=-160, NHMEA=0, SHMEA=0, MER1=0, MER2=0)

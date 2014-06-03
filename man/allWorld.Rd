@@ -4,7 +4,7 @@
 \alias{allWorldKey}
 \title{Giorgi regions overview plots}
 \usage{
-allWorld(fun, regnames = NULL, inset.bg = rgb(1, 1, 1, 0.8), ...)
+allWorld(fun, regnames = NULL, inset.bg = "#FFFFFFCC", ...)
 }
 \arguments{
 \item{fun}{function to be executed at the respective spots for insets}

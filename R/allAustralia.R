@@ -73,7 +73,7 @@ allAustralia <- function(fun, bg=NULL, add.legend=TRUE, old=FALSE, regnames=NULL
     size <- if (all(regnames %in% c('EA', 'SA', 'NA', 'R'))) c(0.35, 0.2) else c(0.1, 0.15)
     for (regn in regnames){
       if (regn == 'SSVW') arrows(x0=140.5, x1=143.5, y0=-39, y1=-38, code=2, lwd=3, length=0.05, col=grey(0.2))
-      inset(inset.x=nrmlons[regn], inset.y=nrmlats[regn], inset.size=size, inset.bg=rgb(1,1,1,0.8), fun=fun, regn=regn, ...=...)
+      inset(inset.x=nrmlons[regn], inset.y=nrmlats[regn], inset.size=size, inset.bg='#FFFFFFCC', fun=fun, regn=regn, ...=...)
     }
   }
   ## plot bounding box

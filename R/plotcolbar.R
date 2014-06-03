@@ -23,7 +23,7 @@ plotcolbar <- function(x, y, yshade=NULL, col=hcl(c(240,0), l=60, c=50), col2=hc
   ## check whether natural variability should be shaded
   yshade <-  if (length(yshade) == 1) c(-1,1)*yshade else yshade[1:2]
   if (!is.null(yshade)){
-    if ((min(y) < max(yshade) & max(y) > min(yshade)) | (max(y) > min(yshade) & min(y) < max(yshade))) segments(x0=x, y0=max(min(y), min(yshade)), y1=min(max(y), max(yshade)), lwd=lwd, lend=3, col=rgb(1,1,1,0.5))
+    if ((min(y) < max(yshade) & max(y) > min(yshade)) | (max(y) > min(yshade) & min(y) < max(yshade))) segments(x0=x, y0=max(min(y), min(yshade)), y1=min(max(y), max(yshade)), lwd=lwd, lend=3, col='#FFFFFF80')
   }
   segments(x0=x, y0=y[3] - diff(par('usr')[3:4])*0.005, y1=y[3] + diff(par('usr')[3:4])*0.005, col=col2[(sign(y[3]) + 1)/2 + 1], lwd=lwd*1.2, lend=3)
 }

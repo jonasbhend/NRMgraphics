@@ -16,7 +16,7 @@ plot_timeseries(dquant, dfiltquant, omn = 0, obs = NULL, modts = NULL,
 
 \item{omn}{Climatology to be added to everything (multiplied if \code{relative})}
 
-\item{obs}{list of observations to be added as lines (one each)}
+\item{obs}{list or array of observations to be added as lines (one each)}
 
 \item{modts}{list of example model data to be overlaid}
 

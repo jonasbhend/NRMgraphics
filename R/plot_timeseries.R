@@ -5,7 +5,7 @@
 #' @param dquant list of (outer) quantile ranges for different scenarios
 #' @param dfiltquant list of (inner) quantile ranges
 #' @param omn Climatology to be added to everything (multiplied if \code{relative})
-#' @param obs list of observations to be added as lines (one each)
+#' @param obs list or array of observations to be added as lines (one each)
 #' @param modts list of example model data to be overlaid
 #' @param modi index of model(s) to be overlaid
 #' @param baselining boundaries of shading to indicate reference period
@@ -54,35 +54,47 @@ plot_timeseries <- function(dquant, dfiltquant, omn=0, obs=NULL, modts=NULL, mod
   leg.lty <- NULL
   
   ## add in the polygon and ensemble median lines
-  scen <- if (scenario %in% names(dquant)) scenario else names(dquant)[length(names(dquant))]
-  ## plot the scenario and historical part in different colours
-  for (sc in c(scen, 'historical')){
-    enrange <- select_time(dfiltquant[[scen]], if (sc == scen) 2006 else startyear+9, if (sc == scen) endyear - 10 else 2005)
-    equant <- select_time(dquant[[scen]], if (sc == scen) 2006 else startyear+9, if (sc == scen) endyear - 10 else 2005)
-    if (!as.lines) vert.poly(equant[1,], equant[2,], x=attr(equant, 'time'), border=NA, col=scencols3[sc])
+  scens <- if (all(scenario %in% names(dquant))) scenario else names(dquant)[length(names(dquant))]
+  ## get the scenario and historical part
+  equant <- enrange <- list()
+  for (sc in c(rev(scens), 'historical')){
+    scen <- if (sc == 'historical') scens[1] else sc
+    enrange[[sc]] <- select_time(dfiltquant[[scen]], if (sc == scen) 2006 else startyear+9, if (sc == scen) endyear - 10 else 2005)
+    equant[[sc]] <- select_time(dquant[[scen]], if (sc == scen) 2006 else startyear+9, if (sc == scen) endyear - 10 else 2005)
+    if (!as.lines) {
+      vert.poly(equant[[sc]][1,], equant[[sc]][2,], x=attr(equant[[sc]], 'time'), border=NA, col=scencols3[sc])
+    }
     ## range for 20-year averages
-    vert.poly(enrange[1,], enrange[2,], x=attr(enrange, 'time'), border=NA, col=scencols[sc])
+    vert.poly(enrange[[sc]][1,], enrange[[sc]][2,], x=attr(enrange[[sc]], 'time'), border=NA, col=scencols[sc])
     ## Multi-model median time series
-    plot(enrange, type='ts', lwd=3, si=3, col=scencols2[sc], add=T)
+    plot(enrange[[sc]], type='ts', lwd=3, si=3, col=scencols2[sc], add=T)
     ## range of yearly values
-    if (as.lines) matplot(x=attr(equant, 'time'), t(equant[1:2,]), lwd=1, col=scencols[sc], type='l', add=T, lty=1)
-  }
+    if (as.lines) matplot(x=attr(equant[[sc]], 'time'), t(equant[[sc]][1:2,]), lwd=1, col=scencols[sc], type='l', add=T, lty=1)
+  } ## end of loop on scenarios
   
   if (!add & add.grid) grid(nx=NA, ny=NULL)
   
   ## add in observations
   if (!is.null(obs)){
-    ocols <- if (oldcolours) hcl(300, seq(70, 40, length=length(obs)), seq(40, 70, length=length(obs))) else rep(obscol, length(obs))
-    for (oi in rev(seq(along=obs))){
-      plot(obs[[oi]], type='ts', si=1, add=T, col=ocols[oi], lwd=1)
+    nobs <- if (is.list(obs)) length(obs) else nrow(obs)
+    ocols <- if (oldcolours) hcl(300, seq(70, 40, length=nobs), seq(40, 70, length=length(obs))) else rep(obscol, nobs)
+    for (oi in nobs:1){
+      plot(if (is.list(obs)) obs[[oi]] else obs, 
+           type='ts', 
+           si=if (is.list(obs)) 1 else oi, 
+           add=T, 
+           col=ocols[oi], 
+           lwd=1)
     }
     leg.col <- c(leg.col, ocols)
-    leg.txt <- c(leg.txt, paste('Observations (', gsub('0.25', '', names(obs)), ')', sep=''))
+    onames <- if (is.list(obs)) names(obs) else rownames(obs)
+    leg.txt <- c(leg.txt, paste('Observations (', gsub('0.25', '', onames), ')', sep=''))
     leg.lty <- c(leg.lty, rep(1, length(ocols)))
   }
   
   ## add in individual model simulation
   if (!is.null(modts)){
+    scen <- scens[1]
     mcol <- if (oldcolours) hcl(60, l=50, c=50) else modcol
     if (length(modi) > 1) mcol <- hcl(seq(along=modi)/length(modi)*360, l=40, c=80)
     for (mi in seq(along=modi)){
