@@ -24,9 +24,48 @@
 #' 
 #' @return vertical limits of plots (e.g. \code{ylim})
 #' 
+#' @examples
+#' ## compute anomalies of the original time series
+#' danom <- anomalies(dd, c(1950,2005))
+#' oanom <- anomalies(oo, c(1950, 2005))
+#' ## compute the quantiles of 20-year means (inner shading)
+#' dfiltquant <- apply.NetCDF(applyfilter(danom, rep(1/20, 20)), 3, quantfun)
+#' ## compute the quantiles of individual years (outer shading)
+#' dquant <- applyfilter(apply.NetCDF(danom, 3, quantfun), rep(1/20, 20))
+#' 
+#' ## plot the time series 
+#' plot_timeseries(dquant=dquant,
+#'                 dfiltquant=dfiltquant,
+#'                 obs=oanom,
+#'                 ylab='Temperature anomalies (1950-2005)')
+#' 
 #' @keywords plot
 #' @export
-plot_timeseries <- function(dquant, dfiltquant, omn=0, obs=NULL, modts=NULL, modi=1, baselining=NULL, seas='', xlim=NULL, ylim=NULL, add=FALSE, relative=FALSE, startyear=1901, endyear=2099, las=2, ylab='', scenario='rcp85', xaxt='s', yaxt='s', add.legend=TRUE, as.lines=FALSE, add.grid=FALSE){
+plot_timeseries <- function(dquant, dfiltquant, omn=0, obs=NULL, modts=NULL, modi=1, baselining=NULL, seas='', xlim=NULL, ylim=NULL, add=FALSE, relative=FALSE, startyear=NULL, endyear=NULL, las=2, ylab='', scenario='rcp85', xaxt='s', yaxt='s', add.legend=TRUE, as.lines=FALSE, add.grid=FALSE){
+  
+  ## by default the function assumes that data is from rcp85
+  if (!is.list(dquant)){
+    dquant <- list(dquant)
+    dfiltquant <- list(dfiltquant)
+    names(dquant) <- names(dfiltquant) <- scenario
+  }
+  
+  ## check that objects are of type NetCDF
+  if (class(dquant[[1]]) != 'NetCDF'){
+    warning('Object not of class NetCDF\nautomatically transformed assuming time series starts in 1901')
+    convert2NetCDF <- function(x){
+      xout <- x
+      attr(xout, 'time') <- 1900 + 1:dim(x)[length(dim(x))]
+      class(xout) <- 'NetCDF'
+      return(xout)  
+    }
+    dquant <- lapply(dquant, convert2NetCDF)
+    dfiltquant <- lapply(dfiltquant, convert2NetCDF)
+  }
+  
+  ## figure out start and endyear if not present
+  if (is.null(startyear)) startyear <- min(attr(dquant[[1]], 'time'))
+  if (is.null(endyear)) endyear <- max(attr(dquant[[1]], 'time'))
   
   ## set up the plots
   dtime <- unique(unlist(lapply(dfiltquant, attr, 'time')))
@@ -115,5 +154,5 @@ plot_timeseries <- function(dquant, dfiltquant, omn=0, obs=NULL, modts=NULL, mod
     if (!is.null(leg.txt) & add.legend) legend('topleft', leg.txt, col=leg.col, lwd=2, inset=c(0.02,0.1), bty='n', cex=par('cex.axis')*0.9, lty=leg.lty)
   }
   
-  return(ylim)
+  invisible(ylim)
 }

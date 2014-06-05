@@ -39,6 +39,17 @@
 #' } 
 #' plot_projbars(mch, ach, seas=names(mch), xlas=1, yside=2)
 #' 
+#' ## set up another list of projected changes
+#' mch <- list()
+#' ach <- list()
+#' mnchange <- c(rcp26=1, rcp45=2, rcp85=3)
+#' for (se in c('DJF', 'MAM', 'JJA', 'SON')){
+#'   for (scen in c('rcp26', 'rcp45', 'rcp85')){
+#'     mch[[se]][[scen]] <- quantile(rnorm(100, mean=mnchange[scen], sd=0.5), c(0.1, 0.9, 0.5))
+#'     ach[[se]][[scen]] <- quantile(rnorm(100, mean=mnchange[scen], sd=1), c(0.1, 0.9, 0.5))
+#'   }
+#' }
+#' plot_projbars(mch, ach, seas=names(mch), xlas=1, yside=2)
 #' 
 #' @keywords plot
 #' @export

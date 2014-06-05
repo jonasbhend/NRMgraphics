@@ -5,7 +5,7 @@
 \usage{
 plot_timeseries(dquant, dfiltquant, omn = 0, obs = NULL, modts = NULL,
   modi = 1, baselining = NULL, seas = "", xlim = NULL, ylim = NULL,
-  add = FALSE, relative = FALSE, startyear = 1901, endyear = 2099,
+  add = FALSE, relative = FALSE, startyear = NULL, endyear = NULL,
   las = 2, ylab = "", scenario = "rcp85", xaxt = "s", yaxt = "s",
   add.legend = TRUE, as.lines = FALSE, add.grid = FALSE)
 }
@@ -53,6 +53,21 @@ vertical limits of plots (e.g. \code{ylim})
 }
 \description{
 Function to plot timeseries given objects of class 'NetCDF'
+}
+\examples{
+## compute anomalies of the original time series
+danom <- anomalies(dd, c(1950,2005))
+oanom <- anomalies(oo, c(1950, 2005))
+## compute the quantiles of 20-year means (inner shading)
+dfiltquant <- apply.NetCDF(applyfilter(danom, rep(1/20, 20)), 3, quantfun)
+## compute the quantiles of individual years (outer shading)
+dquant <- applyfilter(apply.NetCDF(danom, 3, quantfun), rep(1/20, 20))
+
+## plot the time series
+plot_timeseries(dquant=dquant,
+                dfiltquant=dfiltquant,
+                obs=oanom,
+                ylab='Temperature anomalies (1950-2005)')
 }
 \keyword{plot}
 

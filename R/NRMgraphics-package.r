@@ -18,6 +18,17 @@ NULL
 #' @name nrmregions
 NULL
 
+#' NRM test data for plots
+#' 
+#' A dataset containing simulated and observed temperature time
+#' series and temperature change percentiles for examples.
+#' 
+#' @docType data
+#' @keywords datasets
+#' @format lists of NetCDF objects
+#' @name nrmexample
+NULL
+
 #' NRM colours
 #' 
 #' A dataset containing the colours used in the NRM report.
