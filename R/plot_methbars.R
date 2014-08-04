@@ -53,10 +53,22 @@ plot_methbars <- function(meanchange, allchange=NULL, x=NULL, ylim=NULL, add.leg
   }
   
   ## get scenario colours
-  ccl <- if (colval > 30 & colval < 70) 65 else 50
+  ccl <- rep(50, length(colval))
+  ccl[colval > 30 & colval < 70] <- 65
   if (is.null(coli)) coli <- rep(1:2, length=length(x)) else if (length(coli) != length(x)) coli <- rep(1:2, length=length(x))
-  ccols <- hcl(colval, l=ccl + c(15, 25), c=ccl - c(5, 15))[coli]
-  ccols2 <- hcl(colval, l=ccl - c(10, 0), c=ccl + c(10,0))[coli]
+  if (all(range(coli) == c(1,2))) {
+    ccl1 <- ccl + c(15, 25)
+    ccl2 <- ccl - c(5,15)
+    ccl3 <- ccl - c(10, 0)
+    ccl4 <- ccl + c(10, 0)
+  } else {
+    ccl1 <- ccl + 15
+    ccl2 <- ccl - 5
+    ccl3 <- ccl - 10
+    ccl4 <- ccl + 10
+  }
+  ccols <- hcl(colval, l=ccl1, c=ccl2)[coli]
+  ccols2 <- hcl(colval, l=ccl3, c=ccl4)[coli]
   
   ## plot bars in right part of panel indicating range
   projbar(x=x, y=sapply(meanchange[ctypes], function(x) x), y2=if (!is.null(allchange)) sapply(allchange[ctypes], function(x) x) else NULL, col=ccols, col2=ccols2, lwd=lwd, lwd2=lwd2)
