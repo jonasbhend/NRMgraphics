@@ -15,6 +15,7 @@
 #' @param add.legend logical, should legend for map background be added?
 #' @param old logical, should old regions be used (RE,RW instead of RN,RS)?
 #' @param regnames which regions should be plotted (see details)
+#' @param ylim vertical extent of background map for control of additional whitespace
 #' @param ... additional arguments passed to \code{fun}
 #' 
 #' @details
@@ -34,14 +35,14 @@
 #'      }
 #' allAustralia(fun=afun, bg=bbg, regnames=c('R', 'NA', 'SA', 'EA'))
 #' @export
-allAustralia <- function(fun, bg=NULL, add.legend=TRUE, old=FALSE, regnames=NULL, ...){
+allAustralia <- function(fun, bg=NULL, add.legend=TRUE, old=FALSE, regnames=NULL, ylim=c(-51, -8), ...){
   ## read in the nrm boundaries
   data('nrmregions', envir=environment())
   ## set the map dimensions
-  mapdim <- c(110, 161, -51, -8)
+  xlim <- c(110, 161)
   nrmlons <- c(WT=148, ECS=156, RE=135, MB=143.5, RW=123, MNW=129, SSVW=138, CS=149, SSVE=152, MNE=142, SSWFE=132.5, SSTE=150, SSWFW=116, SSTW=143, ECN=154.5, RN=134, RS=(132.5 + 116) / 2, `NA`=135, SA=135, EA=149, R=121)
   nrmlats <- c(WT=-14, ECS=-31, RE=-25, MB=-34, RW=-25, MNW=-14, SSVW=-38, CS=-29, SSVE=-38, MNE=-19, SSWFE=-35, SSTE=-45, SSWFW=-33, SSTW=-45, ECN=-23, RN=-23, RS=-29, `NA`=-14, SA=-38, EA=-26, R=-26)
-  plot(0, type='n', xlim=mapdim[1:2], ylim=mapdim[3:4], asp=1/cos(mean(mapdim[3:4])/180*pi), axes=F, xlab='', ylab='', xaxs='i', yaxs='i')
+  plot(0, type='n', xlim=xlim, ylim=ylim, asp=1/cos(mean(ylim)/180*pi), axes=F, xlab='', ylab='', xaxs='i', yaxs='i')
   ## plot background
   regnames2 <- if (all(regnames %in% c('EA', 'SA', 'NA', 'R')) & !is.null(regnames)) regnames else setdiff(setdiff(names(nrmlons), c('NA', 'SA', 'EA', 'R')), if (old) c('RN', 'RS') else c('RE', 'RW'))
   if (is.null(regnames)) regnames <- regnames2
@@ -62,7 +63,7 @@ allAustralia <- function(fun, bg=NULL, add.legend=TRUE, old=FALSE, regnames=NULL
         if (!is.null(bg$title)) axis(3, at=0.5, bg$title, font=2, tick=F, hadj=0, line=-0.7, cex.axis=0.8*par('cex.axis'))        
       }
       ## add the colourbar in an inset
-      inset(inset.x=123.8, inset.y=-47-2, fun=addcolourbar, inset.size=c(0.4, 0.015))
+      inset(inset.x=123.8, inset.y=ylim[2]+2, fun=addcolourbar, inset.size=c(0.4, 0.015))
     }
   } else {
     for (regn in regnames2) lapply(nrmregions[[regn]], polygon, border=grey(0.7), col=grey(0.9))    
