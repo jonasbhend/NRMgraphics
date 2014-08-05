@@ -63,7 +63,7 @@ allAustralia <- function(fun, bg=NULL, add.legend=TRUE, old=FALSE, regnames=NULL
         if (!is.null(bg$title)) axis(3, at=0.5, bg$title, font=2, tick=F, hadj=0, line=-0.7, cex.axis=0.8*par('cex.axis'))        
       }
       ## add the colourbar in an inset
-      inset(inset.x=123.8, inset.y=ylim[2]+2, fun=addcolourbar, inset.size=c(0.4, 0.015))
+      inset(inset.x=123.8, inset.y=ylim[1]+2, fun=addcolourbar, inset.size=c(0.4, 0.015))
     }
   } else {
     for (regn in regnames2) lapply(nrmregions[[regn]], polygon, border=grey(0.7), col=grey(0.9))    
