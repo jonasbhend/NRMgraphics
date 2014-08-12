@@ -11,7 +11,6 @@
 #' placing a legend in the bottomleft corner.
 #' 
 #' @param fun function to be executed at the respective spots for insets
-#' @param add.legend logical, should legend for map background be added?
 #' @param regnames which regions should be plotted (see details)
 #' @param inset.bg background colour for insets (with transparency)
 #' @param ... additional arguments passed to \code{fun}
@@ -46,8 +45,9 @@ allWorld <- function(fun, regnames=NULL, inset.bg='#FFFFFFCC', ...){
   box()
 }
 
-#' @rdname allAustralia
+#' @rdname allWorld
 #' @export
 allWorldKey <- function(fun, ...){
+  mapdim <- c(-180, 180, -60, 85)  
   inset(inset.x=mapdim[1]+0.1*diff(mapdim[1:2]), inset.y=mapdim[3] + 0.1*diff(mapdim[3:4]), inset.size=c(0.1, 0.15), fun=fun, ...=...)
 }

@@ -5,11 +5,11 @@
 \title{Giorgi regions overview plots}
 \usage{
 allWorld(fun, regnames = NULL, inset.bg = "#FFFFFFCC", ...)
+
+allWorldKey(fun, ...)
 }
 \arguments{
 \item{fun}{function to be executed at the respective spots for insets}
-
-\item{add.legend}{logical, should legend for map background be added?}
 
 \item{regnames}{which regions should be plotted (see details)}
 

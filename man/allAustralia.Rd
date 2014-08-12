@@ -2,15 +2,12 @@
 \name{allAustralia}
 \alias{allAustralia}
 \alias{allAustraliaKey}
-\alias{allWorldKey}
 \title{Australian overview plots}
 \usage{
 allAustralia(fun, bg = NULL, add.legend = TRUE, old = FALSE,
   regnames = NULL, maplim = c(-51, -8), ...)
 
 allAustraliaKey(fun, ...)
-
-allWorldKey(fun, ...)
 }
 \arguments{
 \item{fun}{function to be executed at the respective spots for insets}
@@ -43,7 +40,7 @@ will add units to the legend.
 \examples{
 bbg <- list(data=c(R=0.9, SA=1.9, `NA`=2.9, EA=3.9))
 afun <- function(regn) {
-     plot(rnorm(100), type='l', xlab='', ylab='', axes=F)
+     plot(rnorm(100), type='l', xlab='', ylab='', axes=FALSE)
      box()
      text(1, par('usr')[4], regn, font=2, adj=c(0,1.5))
      }
