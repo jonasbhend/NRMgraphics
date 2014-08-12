@@ -15,7 +15,7 @@
 #' @param add.legend logical, should legend for map background be added?
 #' @param old logical, should old regions be used (RE,RW instead of RN,RS)?
 #' @param regnames which regions should be plotted (see details)
-#' @param ylim vertical extent of background map for control of additional whitespace
+#' @param maplim vertical extent of background map for control of additional whitespace
 #' @param ... additional arguments passed to \code{fun}
 #' 
 #' @details

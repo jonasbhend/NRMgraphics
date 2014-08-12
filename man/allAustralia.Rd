@@ -6,7 +6,7 @@
 \title{Australian overview plots}
 \usage{
 allAustralia(fun, bg = NULL, add.legend = TRUE, old = FALSE,
-  regnames = NULL, ylim = c(-51, -8), ...)
+  regnames = NULL, maplim = c(-51, -8), ...)
 
 allAustraliaKey(fun, ...)
 
@@ -23,7 +23,7 @@ allWorldKey(fun, ...)
 
 \item{regnames}{which regions should be plotted (see details)}
 
-\item{ylim}{vertical extent of background map for control of additional whitespace}
+\item{maplim}{vertical extent of background map for control of additional whitespace}
 
 \item{...}{additional arguments passed to \code{fun}}
 }
